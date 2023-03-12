@@ -1,4 +1,4 @@
-const Problem = require(`../models/roblemModel`);
+const Problem = require(`../models/problemModel`);
 const factory = require('./handlerFactory');
 
 exports.setCustomerIds = (req, res, next) => {

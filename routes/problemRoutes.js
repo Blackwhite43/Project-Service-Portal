@@ -9,17 +9,17 @@ router.use(authController.protect);
 
 router
   .route('/')
-  .get(problemController.getAllReviews)
+  .get(problemController.getAllProblems)
   .post(
     authController.restrictTo('customer'),
     problemController.setCustomerIds,
-    problemController.createReview
+    problemController.createProblem
   );
 
 router
   .route('/:id')
-  .get(problemController.getReview)
-  .delete(problemController.deleteReview)
-  .patch(problemController.updateReview);
+  .get(problemController.getProblem)
+  .delete(problemController.deleteProblem)
+  .patch(problemController.updateProblem);
 
 module.exports = router;

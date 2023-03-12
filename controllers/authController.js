@@ -61,7 +61,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
     passwordChangedAt: req.body.passwordChangedAt,
 
     // Basically we only allow the data that we actually need to be put into the new user. no longer register as an admin. So if want to add admin we should direct to database
-    // role: req.body.role,
+    role: req.body.role,
   });
 
   createSendToken(newUser, 201, res);
@@ -91,7 +91,7 @@ exports.login = catchAsync(async (req, res, next) => {
 exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
+    httpOnly: true,
   });
   res.status(200).json({ status: 'success' });
 };
@@ -174,17 +174,17 @@ exports.isLoggedIn = async (req, res, next) => {
 // EXAMPLE FOR FUNCTION THAT PASS ARGUMENTS
 exports.restrictTo =
   (...roles) =>
-    (req, res, next) => {
-      // roles ['admin', 'lead-guide']
+  (req, res, next) => {
+    // roles ['admin', 'lead-guide']
 
-      if (!roles.includes(req.user.role)) {
-        return next(
-          new AppError('You do not have permission to perform this action', 403)
-        );
-      }
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
 
-      next();
-    };
+    next();
+  };
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email

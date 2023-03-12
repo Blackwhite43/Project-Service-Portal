@@ -5,9 +5,6 @@ const problemRouter = require('./problemRoutes');
 
 const router = express.Router();
 
-// Nested Route Problem
-router.use('/:customerId/problems', problemRouter);
-
 // SIGNUP
 router.post('/signup', authController.signUp);
 router.post('/login', authController.login);
@@ -25,7 +22,15 @@ router.patch('/updateMe', userController.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 router.get('/me', userController.getMe, userController.getUser);
 
-router.use(authController.restrictTo('admin'));
+router.use(
+  authController.restrictTo(
+    'employee-SID',
+    'employee-AIR',
+    'employee-PPC',
+    'employee-IDE',
+    'employee-TPM'
+  )
+);
 
 // REST FORMAT because possibility of a system administrator updating, deleting, getting all the users based on their ID.
 router

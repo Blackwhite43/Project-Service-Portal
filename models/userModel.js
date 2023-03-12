@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     // if there is space after or before string will deleted
     trim: true,
   },
-  slug: String,
+  slug: { type: String, select: false },
   email: {
     type: String,
     required: [true, 'Please provide your email'],
@@ -28,9 +28,7 @@ const userSchema = new mongoose.Schema({
     // validate the email with package validator
     validate: [validator.isEmail, 'Please provide a valid email'],
   },
-  photo: {
-    type: String,
-  },
+  photo: String,
   role: {
     required: [true, 'Please provide a role'],
     type: String,
