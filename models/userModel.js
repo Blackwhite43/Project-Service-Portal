@@ -9,6 +9,9 @@ const bcrypt = require('bcryptjs');
 // Strongly encrypt password with SHA 256, it's built-in module from node.js no need to install it. SHA-256 stands for Secure Hash Algorithm 256-bit and it's used for cryptographic security
 const crypto = require('crypto');
 
+// For beautify our routes
+const slugify = require('slugify');
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,6 +19,7 @@ const userSchema = new mongoose.Schema({
     // if there is space after or before string will deleted
     trim: true,
   },
+  slug: String,
   email: {
     type: String,
     required: [true, 'Please provide your email'],
@@ -68,6 +72,11 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
+});
+
+userSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 // ENCRYPT PASSWORD

@@ -12,6 +12,7 @@ const problemSchema = new mongoose.Schema({
     required: [true, 'Please provide a description'],
     trim: true,
   },
+  media: String,
   status: {
     type: String,
     required: [true, 'Please provide a status'],
@@ -33,7 +34,7 @@ const problemSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    required: [true, 'Review must belong to a user.'],
+    required: [true, 'Problem must belong to a user.'],
   },
 });
 

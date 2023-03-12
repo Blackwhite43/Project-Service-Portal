@@ -69,7 +69,7 @@ app.use(
 
 // -------------- ROUTES -------------------- //
 // API Routes is divide it to routes folder
-app.use('/api/v1/problems', rackRouter); // parent route, prevent for update we use v1
+app.use('/api/v1/problems', problemRouter); // parent route, prevent for update we use v1
 app.use('/api/v1/users', userRouter); // parent route
 
 // HANDLE UNHANDLE ROUTE makesure this route on bot of others route
