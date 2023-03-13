@@ -38,6 +38,16 @@ const problemSchema = new mongoose.Schema({
   },
 });
 
+// This middleware will run when we access the find query, before the others query run this function will be run first
+problemSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "user",
+    select: "name role",
+  });
+  next();
+});
+
+
 const Problem = mongoose.model('Problem', problemSchema);
 
 module.exports = Problem;
