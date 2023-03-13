@@ -8,6 +8,9 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 
+const cors = require('cors')
+
+
 // -------- REQUIRE CUSTOM MODULE -------- //
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
@@ -24,6 +27,8 @@ const app = express();
 //Its Security middleware but its should be in the first middleware
 // Set Security HTTP headers: Using helmet are quick and simple way to create a layer of security by switching from Express defaults to a more secure set of defaults
 app.use(helmet());
+
+app.use(cors())
 
 // Development logging | morgan will logs HTTP requests
 if (process.env.NODE_ENV === 'development') {
@@ -42,7 +47,7 @@ app.use(
 
 // limit if too many request from same IP
 const limiter = rateLimit({
-  max: 100,
+  max: 1000,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try again in an hour!',
 });
