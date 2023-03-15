@@ -8,10 +8,10 @@ exports.setCustomerIds = (req, res, next) => {
   next();
 };
 exports.getUserProblems = catchAsync(async (req, res, next) => {
+  req.params.id = req.user.id;
   const problem = await Problem.find({
     user: req.params.id
   });
-  //console.log(req.params.id);
   res.status(200).json({
     status: 'success',
     data: {

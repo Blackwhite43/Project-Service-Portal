@@ -7,6 +7,9 @@ const router = express.Router({ mergeParams: true });
 
 router.use(authController.protect);
 
+
+router.get('/my-problems', problemController.getUserProblems);
+
 router
   .route('/')
   .get(problemController.getAllProblems)
