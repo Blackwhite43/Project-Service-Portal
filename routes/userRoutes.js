@@ -2,6 +2,7 @@ const express = require('express');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const problemRouter = require('./problemRoutes');
+const { getUserProblems } = require('../controllers/problemController');
 
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.patch('/updatePassword', authController.updatePassword);
 router.patch('/updateMe', userController.updateMe);
 router.delete('/deleteMe', userController.deleteMe);
 router.get('/me', userController.getMe, userController.getUser);
+router.get('/my-problems', userController.getMe, getUserProblems);
 
 router.use(
   authController.restrictTo(
