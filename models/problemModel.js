@@ -4,7 +4,7 @@ const problemSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, 'Please provide a title'],
-    maxlength: [50, 'A tour name must have less or equal then 50 characters'],
+    maxlength: [50, 'A title must have less or equal then 50 characters'],
     trim: true,
   },
   description: {
@@ -15,9 +15,10 @@ const problemSchema = new mongoose.Schema({
   media: String,
   status: {
     type: String,
-    required: [true, 'Please provide a status'],
+    //required: [true, 'Please provide a status'],
     enum: ['open', 'closed', 'process'],
     message: 'Status is either: open, process or closed',
+    default: 'open'
   },
   situation: {
     type: String,
@@ -30,6 +31,13 @@ const problemSchema = new mongoose.Schema({
   },
   completionEstimate: {
     type: Date,
+  },
+  person_in_charge: {
+    type: String,
+    default: 'TBD',
+  },
+  pic_action: {
+    
   },
   user: {
     type: mongoose.Schema.ObjectId,
