@@ -80,6 +80,13 @@ app.use(
   })
 );
 
+// -------------- TEST MIDDLEWARE -------------------- //
+app.use((req, res, next) => {
+  console.log(req.cookies.jwt)
+  next();
+})
+
+
 // -------------- ROUTES -------------------- //
 // API Routes is divide it to routes folder
 app.use('/api/v1/problems', problemRouter); // parent route, prevent for update we use v1

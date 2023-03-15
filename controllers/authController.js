@@ -104,6 +104,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt
   }
   //   console.log(token);
 
@@ -174,17 +176,17 @@ exports.isLoggedIn = async (req, res, next) => {
 // EXAMPLE FOR FUNCTION THAT PASS ARGUMENTS
 exports.restrictTo =
   (...roles) =>
-  (req, res, next) => {
-    // roles ['admin', 'lead-guide']
+    (req, res, next) => {
+      // roles ['admin', 'lead-guide']
 
-    if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError('You do not have permission to perform this action', 403)
-      );
-    }
+      if (!roles.includes(req.user.role)) {
+        return next(
+          new AppError('You do not have permission to perform this action', 403)
+        );
+      }
 
-    next();
-  };
+      next();
+    };
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
