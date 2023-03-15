@@ -1,6 +1,6 @@
 const Problem = require(`../models/problemModel`);
+const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
-const catchAsync = require('./../catchAsync');
 
 exports.setCustomerIds = (req, res, next) => {
   // ALLOW NESTED ROUTES
