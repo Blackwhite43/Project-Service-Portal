@@ -15,10 +15,11 @@ const problemSchema = new mongoose.Schema({
   media: String,
   status: {
     type: String,
-    //required: [true, 'Please provide a status'],
-    enum: ['open', 'closed', 'process'],
-    message: 'Status is either: open, process or closed',
-    default: 'open'
+    default: 'open',
+    enum: {
+      values: ['open', 'closed', 'process'],
+      message: 'Status is either: open, process or closed',
+    },
   },
   situation: {
     type: String,
@@ -31,13 +32,14 @@ const problemSchema = new mongoose.Schema({
   },
   completionEstimate: {
     type: Date,
+    // If possible create pre middleware to calculate Date.Now() - Date()
   },
   person_in_charge: {
     type: String,
     default: 'TBD',
   },
   pic_action: {
-    
+
   },
   user: {
     type: mongoose.Schema.ObjectId,

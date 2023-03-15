@@ -7,11 +7,17 @@ exports.setCustomerIds = (req, res, next) => {
   if (!req.body.user) req.body.user = req.user.id;
   next();
 };
-exports.getUserProblems = catchAsync(async (req, res, next) => {
+
+
+
+exports.getAllProblems = catchAsync(async (req, res, next) => {
   req.params.id = req.user.id;
-  const problem = await Problem.find({
-    user: req.params.id
-  });
+  let problem;
+  if (req.user.role === "customer") {
+    problem = await Problem.find({
+      user: req.params.id
+    });
+  } else { problem = await Problem.find(); }
   res.status(200).json({
     status: 'success',
     data: {
@@ -20,7 +26,7 @@ exports.getUserProblems = catchAsync(async (req, res, next) => {
   });
 })
 
-exports.getAllProblems = factory.getAll(Problem);
+// exports.getAllProblems = factory.getAll(Problem);
 exports.getProblem = factory.getOne(Problem);
 exports.createProblem = factory.createOne(Problem);
 exports.deleteProblem = factory.deleteOne(Problem);
